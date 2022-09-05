@@ -202,7 +202,7 @@ import 'prismjs/components/prism-markdown';
 import 'prismjs/themes/prism-okaidia.css';
 
 import { useReactMediaRecorder } from 'react-media-recorder';
-import domtoimage from 'dom-to-image-more';
+import domtoimage from 'dom-to-image';
 
 const sl = parse(md);
 
@@ -294,6 +294,8 @@ const RecordView = () => {
   );
 };
 
+let frames = [];
+
 function App() {
   const [current, setCurrent] = useState(0);
   const [exporting, setExporting] = useState(0);
@@ -337,6 +339,7 @@ function App() {
       height: node.offsetHeight * SCALE,
       width: node.offsetWidth * SCALE,
       quality: 1,
+      style,
     };
 
     const base64Image = await domtoimage.toPng(node, param);
@@ -391,16 +394,12 @@ function App() {
       chunks = [];
       const element = document.createElement('a');
       element.setAttribute('href', URL.createObjectURL(blob));
-      element.setAttribute('download', `${filename}.mp4`);
+      element.setAttribute('download', `1.mp4`);
 
       element.style.display = 'none';
       document.body.appendChild(element);
       element.click();
       document.body.removeChild(element);
-
-      setAllGIFFramesCaptured(false);
-      setGIFFrames([]);
-      setFrames([]);
     };
     mediaRecorder.ondataavailable = function (e) {
       chunks.push(e.data);
@@ -424,13 +423,21 @@ function App() {
     }, 100);
   };
 
+  useEffect(() => {
+    takeSnapshot().then((imageBlob) => {
+      frames.push(imageBlob);
+    });
+  }, [current]);
+
   const play = (cur) => {
-    console.log(cur);
     if (cur < sl.slides.length - 1) {
-      setCurrent((prev) => prev + 1);
+      setCurrent(cur + 1);
       setTimeout(() => {
         play(cur + 1);
       }, 1000);
+    } else {
+      console.log(frames);
+      makeVideo(frames, 1000);
     }
   };
 
@@ -450,7 +457,7 @@ function App() {
           })}
         </div>
       </div>
-      <button className="mr-3" onClick={() => play(current)}>
+      <button className="mr-3" onClick={() => play(0)}>
         play
       </button>
       <button disabled={exporting} onClick={onExport}>
