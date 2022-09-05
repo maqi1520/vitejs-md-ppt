@@ -323,9 +323,7 @@ function App() {
     Prism.highlightAll();
   }, []);
 
-  const takeSnapshot = async () => {
-    const node = backgroundRef.current;
-
+  const takeSnapshot = async (node) => {
     const style = {
       transform: 'scale(' + SCALE + ')',
       transformOrigin: 'top left',
@@ -369,6 +367,7 @@ function App() {
 
     const interval = setInterval(() => {
       currentFrame += 1;
+      setCurrent(currentFrame);
       if (currentFrame === frames.length - 1) {
         clearInterval(interval);
         setTimeout(() => {
@@ -401,7 +400,8 @@ function App() {
     setExporting(true);
 
     setTimeout(() => {
-      takeSnapshot()
+      const nodes = document.querySelectorAll('.slide-content');
+      takeSnapshot(nodes[current])
         .then((blobUrl) => {
           downloadBlob(blobUrl, `1.png`);
         })
@@ -412,22 +412,14 @@ function App() {
     }, 100);
   };
 
-  useEffect(() => {
-    takeSnapshot().then((imageBlob) => {
+  const play = async (cur) => {
+    const nodes = document.querySelectorAll('.slide-content');
+    for (let i = 0; i < nodes.length; i++) {
+      const imageBlob = await takeSnapshot(nodes[i]);
       framesRef.current.push(imageBlob);
-    });
-  }, [current]);
-
-  const play = (cur) => {
-    if (cur < sl.slides.length - 1) {
-      setCurrent(cur + 1);
-      setTimeout(() => {
-        play(cur + 1);
-      }, 1000);
-    } else {
-      console.log(framesRef.current);
-      makeVideo(framesRef.current, 1000);
     }
+    console.log(framesRef.current);
+    makeVideo(framesRef.current, 1000);
   };
 
   return (
@@ -435,6 +427,7 @@ function App() {
       <div ref={backgroundRef} className="App">
         <div
           className="flex h-full transition-transform transform duration-500"
+          ref={backgroundRef}
           style={{
             width: sl.slides.length * 100 + '%',
             transform: `translate(-${800 * current + 'px'}, 0)`,
