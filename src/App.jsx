@@ -294,12 +294,11 @@ const RecordView = () => {
   );
 };
 
-let frames = [];
-
 function App() {
   const [current, setCurrent] = useState(0);
   const [exporting, setExporting] = useState(0);
   const backgroundRef = useRef(null);
+  const framesRef = useRef([]);
   useEffect(() => {
     const handleKeydown = (e) => {
       e.preventDefault();
@@ -319,7 +318,6 @@ function App() {
       document.removeEventListener('keydown', handleKeydown);
     };
   }, [current]);
-  console.log(current);
 
   useEffect(() => {
     Prism.highlightAll();
@@ -392,17 +390,8 @@ function App() {
       clearInterval(interval);
       const blob = new Blob(chunks, { type: 'video/mp4' });
       chunks = [];
-      const element = document.createElement('a');
-      element.setAttribute('href', URL.createObjectURL(blob));
-      element.setAttribute('download', `1.mp4`);
-
-      element.style.display = 'none';
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
-    };
-    mediaRecorder.ondataavailable = function (e) {
-      chunks.push(e.data);
+      downloadBlob(URL.createObjectURL(blob), '1.mp4');
+      framesRef.current = [];
     };
 
     mediaRecorder.start();
@@ -425,7 +414,7 @@ function App() {
 
   useEffect(() => {
     takeSnapshot().then((imageBlob) => {
-      frames.push(imageBlob);
+      framesRef.current.push(imageBlob);
     });
   }, [current]);
 
@@ -436,8 +425,8 @@ function App() {
         play(cur + 1);
       }, 1000);
     } else {
-      console.log(frames);
-      makeVideo(frames, 1000);
+      console.log(framesRef.current);
+      makeVideo(framesRef.current, 1000);
     }
   };
 
