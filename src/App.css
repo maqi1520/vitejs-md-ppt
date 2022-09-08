@@ -1,12 +1,26 @@
+*,
+::before,
+::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e7eb;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+.mr-3 {
+  margin-right: 12px;
+}
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #242424;
   height: 100vh;
 }
 .App {
-  width: 800px;
-  height: 450px;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
 }
 .text-white {
@@ -15,11 +29,26 @@ body {
 .flex {
   display: flex;
 }
+.justify-center {
+  justify-content: center;
+}
+.flex-1 {
+  flex: 1;
+}
+.flex-col {
+  flex-direction: column;
+}
 .w-full {
   width: 100%;
 }
 .h-full {
   height: 100%;
+}
+.h-screen {
+  height: 100vh;
+}
+.p-3 {
+  padding: 12px;
 }
 .duration-500 {
   transition-duration: 0.5s;
@@ -31,9 +60,17 @@ body {
 }
 .slide-content {
   position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+}
+.editable {
+  overflow-y: scroll;
+}
+.editable .slide-content {
+  margin: auto;
   width: 800px;
   height: 450px;
-  background: #fff;
   margin-bottom: 20px;
 }
 .my-auto {
@@ -41,15 +78,6 @@ body {
   margin-bottom: auto;
 }
 
-*,
-::before,
-::after {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-width: 0;
-  border-style: solid;
-  border-color: #e5e7eb;
-}
 .slidev-layout {
   width: 100%;
   height: 100%;
@@ -120,8 +148,6 @@ body {
   padding-left: 0.2em;
 }
 .slidev-layout blockquote {
-  background-color: var(--prism-background);
-  border-color: var(--slidev-theme-primary);
   border-radius: 0.25rem;
   border-left-width: 1px;
   font-size: 0.875rem;
@@ -130,7 +156,6 @@ body {
   padding-right: 0.5rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-  color: var(--prism-foreground);
 }
 .slidev-layout blockquote > * {
   margin-top: 0px;
@@ -154,7 +179,6 @@ body {
 }
 .slidev-layout a:hover {
   border-style: solid;
-  color: var(--slidev-theme-primary);
 }
 .slidev-layout td,
 .slidev-layout th {
@@ -168,13 +192,12 @@ body {
 }
 .slidev-layout kbd {
   border-color: rgba(156, 163, 175, 0.2);
-  --tw-border-opacity: 0.2;
   border-radius: 0.25rem;
   border-width: 1px;
   border-bottom-width: 2px;
   background-color: rgba(156, 163, 175, 0.05);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
+    "Liberation Mono", "Courier New", monospace;
   font-size: 0.75rem;
   line-height: 1rem;
   padding-top: 0.125rem;
@@ -275,4 +298,51 @@ body {
   font-weight: 500;
   font-size: 3.75rem;
   line-height: 5rem;
+}
+
+.record-tools {
+  opacity: 0;
+  padding: 20px;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  bottom: 0px;
+  left: 10px;
+  transition: all 1s;
+}
+
+.record-tools:hover,
+.record-tools:active {
+  opacity: 1;
+}
+button {
+  padding: 3px 10px;
+  cursor: pointer;
+  border-radius: 2px;
+  background-color: #6366f1;
+  color: #fff;
+}
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.record-tools button + button {
+  margin-left: 12px;
+}
+
+textarea {
+  height: calc(100vh - 52px);
+  resize: none;
+  outline: none;
+}
+.bar {
+  text-align: right;
+  padding: 12px;
+  background-color: #eef2ff;
+  border-bottom: 1px solid #e0e7ff;
+}
+
+.bar button {
+  padding: 5px 12px;
 }
