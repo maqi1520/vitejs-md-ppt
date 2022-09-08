@@ -3,7 +3,7 @@ background: https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c6a6d6d5701543c5bf
 class: text-white
 ---
 
-# Markdown 写PPT 是如何实现的？
+# 码上掘金不仅可以写 PPT，还可以录视频
 
 码上掘金幻灯片演示
 
@@ -179,6 +179,21 @@ useEffect(() => {
     Prism.highlightAll();
   }, []);
 ```
+---
+
+# 录制视频的 WEB RTC API
+
+- `MediaDevices.getUserMedia()` 可用于获取麦克风以及摄像头的流
+- `MediaDevices.getDisplayMedia()` 屏幕捕获流 MediaStream
+- `MediaRecorder()` 构造函数会 Record 相关的接口
+
+---
+
+# 开源
+
+GitHub地址：https://github.com/maqi1520/vitejs-md-ppt
+
+具体关注我的掘金文章
 
 ---
 layout: image-right 
