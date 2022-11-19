@@ -181,6 +181,7 @@ function Textarea({ defaultValue, className, onChange }) {
           {
             value: defaultValue,
             language: "markdown",
+            fontSize: "14px",
             minimap: { enabled: false },
             //theme: "vs-dark",
           }
