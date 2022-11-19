@@ -15,7 +15,8 @@
   margin-right: 12px;
 }
 body {
-  background-color: #242424;
+  background-color: #f4f5f5;
+
   height: 100vh;
 }
 .App {
@@ -65,6 +66,9 @@ body {
   background: #fff;
 }
 .editable {
+  width: 50%;
+  padding-top: 20px;
+  overflow-x: auto;
   overflow-y: scroll;
 }
 .editable .slide-content {
@@ -72,6 +76,7 @@ body {
   width: 800px;
   height: 450px;
   margin-bottom: 20px;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
 }
 .my-auto {
   margin-top: auto;
@@ -331,18 +336,24 @@ button[disabled] {
   margin-left: 12px;
 }
 
-textarea {
+textarea,
+#monaco-editor {
   height: calc(100vh - 52px);
   resize: none;
   outline: none;
 }
+
 .bar {
   text-align: right;
   padding: 12px;
   background-color: #eef2ff;
   border-bottom: 1px solid #e0e7ff;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
 }
 
 .bar button {
   padding: 5px 12px;
+}
+.border-right {
+  border-right: 1px solid rgba(230, 230, 231, 0.5);
 }

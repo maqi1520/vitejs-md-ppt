@@ -139,7 +139,6 @@ function Preview({ slides, onEdit }) {
       const imageBlob = await takeSnapshot(nodes[i]);
       framesRef.current.push(imageBlob);
     }
-    console.log(framesRef.current);
     makeVideo(framesRef.current, 1000);
   };
 
@@ -172,6 +171,41 @@ function Preview({ slides, onEdit }) {
   );
 }
 
+function Textarea({ defaultValue, className, onChange }) {
+  const editorRef = useRef();
+  useEffect(() => {
+    require(["vs/editor/editor.main"], function () {
+      if (!editorRef.current) {
+        const editor = monaco.editor.create(
+          document.getElementById("monaco-editor"),
+          {
+            value: defaultValue,
+            language: "markdown",
+            minimap: { enabled: false },
+            //theme: "vs-dark",
+          }
+        );
+        editor.onDidChangeModelContent(() => {
+          onChange(editor.getValue());
+        });
+        editorRef.current = editor;
+
+        window.editor = editorRef.current;
+      }
+    });
+  }, []);
+  useEffect(() => {
+    const observer = new ResizeObserver(() => {
+      window.setTimeout(() => editorRef.current?.layout(), 0);
+    });
+    observer.observe(document.body);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+  return <div className={className} id="monaco-editor"></div>;
+}
+
 function Editor({ value, slides, onFinish, onChange }) {
   useEffect(() => {
     Prism.highlightAll();
@@ -179,18 +213,17 @@ function Editor({ value, slides, onFinish, onChange }) {
 
   return (
     <div className="flex h-screen">
-      <div className="flex-1">
+      <div style={{ width: "50%" }} className="flex-1 border-right">
         <div className="bar">
           <button onClick={onFinish}>完成</button>
         </div>
-        <textarea
-          onChange={(e) => onChange(e.target.value)}
-          className="w-full p-3"
-        >
-          {value}
-        </textarea>
+        <Textarea
+          onChange={onChange}
+          className="w-full"
+          defaultValue={value}
+        ></Textarea>
       </div>
-      <div className="flex-1 editable">
+      <div className="flex-1 editable pt-20">
         {slides.map((item, index) => {
           const Slide = layout[item.frontmatter.layout || "default"];
           return <Slide item={item} key={index} />;
