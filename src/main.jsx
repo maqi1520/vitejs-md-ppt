@@ -1,3 +1,5 @@
+import "./index.css";
+import "prismjs/themes/prism-okaidia.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";

@@ -1,15 +1,15 @@
 ---
-background: https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c6a6d6d5701543c5bff1dd2ca14b8ab3~tplv-k3u1fbpfcp-watermark.image?
+background: https://images.unsplash.com/photo-1568983268695-74a04650c8b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80
 class: text-white
 ---
 
-# 码上掘金不仅可以写 PPT，还可以录视频
+# Markdown 实现写 PPT、录视频 Demo 演示
 
-码上掘金幻灯片演示
+在线幻灯片演示
 
 ---
 layout: image-right
-image: https://images.unsplash.com/photo-1502189562704-87e622a34c85?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=450&ixid=MnwxfDB8MXxyYW5kb218MHw5NDczNDU2Nnx8fHx8fHwxNjU5OTI2OTkz&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=400
+image: https://images.unsplash.com/photo-1662581871625-7dbd3ac1ca18?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80
 ---
 
 ## 常用的 Markdown 解析器
@@ -30,7 +30,7 @@ const markdown = new Markdown();
 markdown.render(`# 欢迎使用 Slidev! \n 为开发者打造的演示文稿工具`)
 ```
 
-**输出**
+## 输出
 
 ``` html
 <h1>欢迎使用 Slidev!</h1>
@@ -44,6 +44,7 @@ image: https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a00c4bd02971430abbe3506
 
 ##  简单布局
 
+
 加层 section 和 css 就成了一张幻灯片
 
 ``` html
@@ -53,6 +54,9 @@ image: https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a00c4bd02971430abbe3506
 </section>
 ```
 
+---
+background: https://images.unsplash.com/photo-1494506281370-d80348b928fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+class: text-white
 ---
 
 # 如何丰富布局？
@@ -179,9 +183,13 @@ useEffect(() => {
     Prism.highlightAll();
   }, []);
 ```
+
+---
+layout: image-right
+image: https://images.unsplash.com/photo-1516961642265-531546e84af2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80
 ---
 
-# 录制视频的 WEB RTC API
+# 录制视频的 API
 
 - `MediaDevices.getUserMedia()` 可用于获取麦克风以及摄像头的流
 - `MediaDevices.getDisplayMedia()` 屏幕捕获流 MediaStream
