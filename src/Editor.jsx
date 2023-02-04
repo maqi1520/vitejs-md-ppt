@@ -5,6 +5,7 @@ import "prismjs/components/prism-markdown";
 import { toggleTheme } from "./utils/theme";
 import { layout } from "./Layouts";
 import MonacoEditor from "./MonacoEditor";
+import ResizeableTag from "./ResizeableTag";
 
 export default function Editor({ value, slides, onFinish, onChange }) {
   useEffect(() => {
@@ -13,7 +14,12 @@ export default function Editor({ value, slides, onFinish, onChange }) {
 
   return (
     <div className="flex h-screen">
-      <div style={{ width: "50%" }} className="flex-1 border-right">
+      <ResizeableTag
+        id="editor-container"
+        defaultWidth={window.innerWidth / 2}
+        localkey={"localkeyWidth"}
+        className="flex-none border-right"
+      >
         <div className="px-4 py-2 shadow border-b dark:border-gray-800 flex justify-between items-center">
           <span className="inline-flex items-center">
             <span className="text-xl mr-2 font-medium text-gray-800 dark:text-white">
@@ -45,7 +51,7 @@ export default function Editor({ value, slides, onFinish, onChange }) {
               </g>
             </svg>
           </span>
-          <button className="w-20 py-2" onClick={onFinish}>
+          <button className="btn w-20 py-2" onClick={onFinish}>
             完成
           </button>
         </div>
@@ -54,8 +60,9 @@ export default function Editor({ value, slides, onFinish, onChange }) {
           className="w-full h-[calc(100vh-52px)]"
           defaultValue={value}
         />
-      </div>
-      <div className="flex-1 editable pt-20">
+      </ResizeableTag>
+
+      <div className="flex-auto editable pt-20">
         {slides.map((item, index) => {
           const Slide =
             layout[item.frontmatter.layout || "default"] || layout["default"];

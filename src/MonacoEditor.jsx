@@ -34,7 +34,7 @@ export default function MonacoEditor({ defaultValue, className, onChange }) {
     const observer = new ResizeObserver(() => {
       window.setTimeout(() => editorRef.current?.layout(), 0);
     });
-    observer.observe(document.body);
+    observer.observe(document.querySelector('#editor-container'));
     return () => {
       observer.disconnect();
     };

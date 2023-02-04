@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import defaultMdText from "./slides.md?raw";
 import { parse } from "@slidev/parser";
 import Editor from "./Editor";
 import Preview from "./Preview";
 import useLocalStorage from "react-use/esm/useLocalStorage";
+import { downloadBlob } from "./utils";
+import RecordView from "./RecordView";
 
 function App() {
   const [editable, setEditable] = useState(true);
@@ -38,15 +40,20 @@ function App() {
     }
   };
 
-  return editable ? (
-    <Editor
-      slides={parsed.slides}
-      onFinish={() => setEditable(false)}
-      onChange={handleChange}
-      value={mdText}
-    />
-  ) : (
-    <Preview onEdit={() => setEditable(true)} slides={parsed.slides} />
+  return (
+    <div>
+      {editable ? (
+        <Editor
+          slides={parsed.slides}
+          onFinish={() => setEditable(false)}
+          onChange={handleChange}
+          value={mdText}
+        />
+      ) : (
+        <Preview slides={parsed.slides} />
+      )}
+      <RecordView editable={editable} onEdit={() => setEditable(true)} />
+    </div>
   );
 }
 
