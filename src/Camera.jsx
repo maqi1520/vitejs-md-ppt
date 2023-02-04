@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import Draggable from "react-draggable";
 import useLocalStorage from "react-use/esm/useLocalStorage";
 
-const RecordView = ({ cameraDeviceId,setShowCamera }) => {
+const RecordView = ({ cameraDeviceId, setShowCamera }) => {
   const [size, setSize] = useLocalStorage("size", "small");
   const ref = useRef(null);
   useEffect(() => {
@@ -47,13 +47,22 @@ const RecordView = ({ cameraDeviceId,setShowCamera }) => {
         <div className="absolute inset-0 cursor-move"></div>
         <div className="absolute -bottom-12  left-0 w-full flex opacity-0 group-hover:opacity-100">
           <div className="rounded-full bg-neutral-800 grid grid-cols-3 gap-2 py-2 px-3 m-auto">
-            <button onClick={()=>setSize('small')} className="w-6 h-6 bg-transparent hover:bg-neutral-600 grid rounded-full">
+            <button
+              onClick={() => setSize("small")}
+              className="w-6 h-6 bg-transparent hover:bg-neutral-600 grid rounded-full"
+            >
               <span className="w-[8px] h-[8px] p-0 m-auto bg-white rounded-full"></span>
             </button>
-            <button onClick={()=>setSize('medium')} className="w-6 h-6 hover:bg-neutral-600 grid rounded-full">
+            <button
+              onClick={() => setSize("medium")}
+              className="w-6 h-6 hover:bg-neutral-600 grid rounded-full"
+            >
               <span className="w-[10px] h-[10px]  m-auto  bg-white rounded-full"></span>
             </button>
-            <button onClick={()=>setShowCamera(false)} className="w-6 h-6 hover:bg-neutral-600 gird rounded-full">
+            <button
+              onClick={() => setShowCamera(false)}
+              className="w-6 h-6 hover:bg-neutral-600 gird rounded-full"
+            >
               <svg
                 className="w-4 h-4 m-auto text-white"
                 fill="none"

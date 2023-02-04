@@ -28,14 +28,18 @@ export default function RecordView({ onEdit, editable }) {
     resumeRecording,
   } = useReactMediaRecorder({
     screen: true,
-    audio: showCamera
-      ? false
-      : audioDeviceId
+    audio: audioDeviceId
       ? {
           deviceId: audioDeviceId,
         }
       : true,
-    video: false,
+    video: {
+      frameRate: 15,
+      width: 3840,
+      height: 2160,
+      cursor: "motion",
+      resizeMode: "crop-and-scale",
+    },
     onStop,
   });
 

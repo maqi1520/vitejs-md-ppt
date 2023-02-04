@@ -5,7 +5,6 @@ import { parse } from "@slidev/parser";
 import Editor from "./Editor";
 import Preview from "./Preview";
 import useLocalStorage from "react-use/esm/useLocalStorage";
-import { downloadBlob } from "./utils";
 import RecordView from "./RecordView";
 
 function App() {
